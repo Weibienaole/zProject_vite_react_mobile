@@ -60,9 +60,15 @@ export default defineConfig((props) => {
 			include: ['react', 'react-dom', 'antd-mobile']
 		},
 		build: {
-			target: 'esnext',
+			target: 'es6',
 			assetsInlineLimit: 4096, //小于此阈值 kb 的导入或引用资源将内联为 base64 编码
-			reportCompressedSize: false // 禁用 gzip 压缩大小报告
+			reportCompressedSize: false, // 禁用 gzip 压缩大小报告
+			// 开启 modulepreload 的 Polyfill
+			modulePreload: {
+				polyfill: true
+			},
+			polyfillModulePreload: true,
+			cssTarget: 'chrome61' // 兼容安卓端微信的 webview,防止 vite 将 rgba() 颜色转化为 #RGBA 十六进制符号的形式，出现样式问题。
 		},
 		preview: {
 			port: 8040
